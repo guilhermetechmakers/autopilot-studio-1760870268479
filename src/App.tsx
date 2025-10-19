@@ -2,12 +2,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 
+// Context
+import { AuthProvider } from "@/contexts/AuthContext";
+
+// Components
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+
 // Pages
 import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
 import SignupPage from "@/pages/SignupPage";
 import PasswordResetPage from "@/pages/PasswordResetPage";
 import EmailVerificationPage from "@/pages/EmailVerificationPage";
+import TwoFactorVerifyPage from "@/pages/TwoFactorVerifyPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import Dashboard from "@/pages/Dashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
@@ -36,29 +43,102 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/password-reset" element={<PasswordResetPage />} />
-          <Route path="/verify-email" element={<EmailVerificationPage />} />
-          
-          {/* Protected routes */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/intake" element={<IntakeWizard />} />
-          <Route path="/proposals/:id?" element={<ProposalGenerator />} />
-          <Route path="/projects/:id" element={<ProjectSpace />} />
-          <Route path="/tasks" element={<TasksPage />} />
-          <Route path="/time-tracking" element={<TimeTrackingPage />} />
-          <Route path="/copilot" element={<AICopilotPage />} />
-          <Route path="/handover" element={<HandoverPackPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          
-          {/* 404 */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/password-reset" element={<PasswordResetPage />} />
+            <Route path="/verify-email" element={<EmailVerificationPage />} />
+            <Route path="/verify-2fa" element={<TwoFactorVerifyPage />} />
+            
+            {/* Protected routes */}
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute requireAdmin>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/intake"
+              element={
+                <ProtectedRoute>
+                  <IntakeWizard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/proposals/:id?"
+              element={
+                <ProtectedRoute>
+                  <ProposalGenerator />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/projects/:id"
+              element={
+                <ProtectedRoute>
+                  <ProjectSpace />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/tasks"
+              element={
+                <ProtectedRoute>
+                  <TasksPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/time-tracking"
+              element={
+                <ProtectedRoute>
+                  <TimeTrackingPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/copilot"
+              element={
+                <ProtectedRoute>
+                  <AICopilotPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/handover"
+              element={
+                <ProtectedRoute>
+                  <HandoverPackPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <SettingsPage />
+                </ProtectedRoute>
+              }
+            />
+            
+            {/* 404 */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
       <Toaster position="top-right" richColors />
     </QueryClientProvider>
