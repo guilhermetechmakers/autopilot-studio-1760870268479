@@ -16,6 +16,7 @@ import ProposalGenerator from "@/pages/ProposalGenerator";
 import ProjectSpace from "@/pages/ProjectSpace";
 import TasksPage from "@/pages/TasksPage";
 import SettingsPage from "@/pages/SettingsPage";
+import TimeTrackingPage from "@/pages/TimeTrackingPage";
 
 // React Query client with optimal defaults
 const queryClient = new QueryClient({
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/proposals/:id?" element={<ProposalGenerator />} />
           <Route path="/projects/:id" element={<ProjectSpace />} />
           <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/time-tracking" element={<TimeTrackingPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           
           {/* 404 */}
