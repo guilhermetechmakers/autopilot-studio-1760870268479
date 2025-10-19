@@ -1,73 +1,175 @@
-# React + TypeScript + Vite
+# Autopilot Studio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Your Complete Business OS for AI Development Teams
 
-Currently, two official plugins are available:
+Autopilot Studio is an end-to-end Business OS for AI development teams and agencies that automates the full service pipeline from lead intake through handover.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- **AI-Assisted Intake** - Smart qualification and automated proposal generation
+- **Proposals & E-Contracts** - Generate, customize, and e-sign contracts with full audit trails
+- **One-Click Project Spin-up** - Instantly create project spaces with repos, milestones, and client portals
+- **AI Copilot** - Context-aware assistant for specs, tickets, and meeting summaries
+- **Launch Automation** - QA checklists, security gates, and one-click deployments
+- **Billing & QuickBooks Sync** - Automated invoicing and accounting integration
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework:** React 18 with TypeScript
+- **Build Tool:** Vite with SWC plugin
+- **Styling:** Tailwind CSS v3 with custom design system
+- **UI Components:** Shadcn/ui with Radix UI primitives
+- **Routing:** React Router v6
+- **State Management:** TanStack React Query
+- **Forms:** React Hook Form with Zod validation
+- **Icons:** Lucide React
+- **Notifications:** Sonner
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Install dependencies
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Start development server (DO NOT RUN - handled by MCP server)
+# npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🎨 Design System
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The application follows a modern, minimal design aesthetic with:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Color Palette:**
+  - Primary background: Deep charcoal (#23272F)
+  - Sidebar: Darker shade (#1A1D23)
+  - Card backgrounds: Medium dark gray (#2C313A)
+  - Accent colors: Soft yellow, muted green, pale blue, soft red, light purple
+
+- **Typography:**
+  - Font family: Inter
+  - Clear hierarchy with bold headings and light body text
+  - Generous spacing and consistent vertical rhythm
+
+- **Components:**
+  - Rounded corners (12-16px radius)
+  - Subtle shadows for elevation
+  - Smooth transitions and hover states
+  - Collapsible sidebar navigation
+
+## 📁 Project Structure
+
 ```
+autopilot-studio/
+├── src/
+│   ├── api/                 # API layer and utilities
+│   ├── components/
+│   │   ├── layout/          # Layout components (DashboardLayout)
+│   │   └── ui/              # Shadcn UI components (44 components)
+│   ├── hooks/               # Custom React hooks
+│   ├── lib/                 # Utilities (cn, api)
+│   ├── pages/               # Page components
+│   │   ├── LandingPage.tsx
+│   │   ├── LoginPage.tsx
+│   │   ├── SignupPage.tsx
+│   │   ├── Dashboard.tsx
+│   │   └── ...
+│   ├── types/               # TypeScript type definitions
+│   ├── App.tsx              # Main app with routing
+│   ├── main.tsx             # Entry point
+│   └── index.css            # Global styles and design system
+├── public/                  # Static assets
+├── components.json          # Shadcn UI configuration
+├── tailwind.config.js       # Tailwind CSS configuration
+├── vite.config.ts           # Vite configuration
+└── package.json             # Dependencies and scripts
+```
+
+## 🎯 Implemented Pages
+
+### Public Pages
+- ✅ Landing Page - Marketing hub with features, pricing, and CTAs
+- ✅ Login Page - Authentication with SSO options
+- ✅ Signup Page - Account creation with validation
+- ✅ Password Reset Page - Password recovery flow
+- ✅ Email Verification Page - Email verification states
+- ✅ 404 Not Found Page - Error page with navigation
+
+### Protected Pages (Dashboard)
+- ✅ Dashboard - Overview with stats, projects, and activity feed
+- 🚧 Admin Dashboard - Admin controls (placeholder)
+- 🚧 Intake Wizard - AI-assisted intake form (placeholder)
+- 🚧 Proposal Generator - Proposal and SoW creation (placeholder)
+- 🚧 Project Space - Project workspace (placeholder)
+- 🚧 Tasks Page - Task management (placeholder)
+- 🚧 Settings Page - User settings (placeholder)
+
+## 🧩 UI Components
+
+All 44 Shadcn UI components are installed and ready to use:
+
+- Accordion, Alert Dialog, Aspect Ratio, Avatar
+- Badge, Breadcrumb, Button
+- Calendar, Card, Carousel, Checkbox, Collapsible, Command, Context Menu
+- Dialog, Drawer, Dropdown Menu
+- Form
+- Hover Card
+- Input, Input OTP
+- Label
+- Menubar
+- Navigation Menu
+- Pagination, Popover, Progress
+- Radio Group, Resizable
+- Scroll Area, Select, Separator, Sheet, Skeleton, Slider, Switch
+- Table, Tabs, Textarea, Toast, Toggle, Toggle Group, Tooltip
+
+## 🎨 Design Features
+
+- **Animations:** Fade-in, slide-in, scale-in effects using Tailwind CSS
+- **Responsive:** Mobile-first design with collapsible sidebar
+- **Dark Theme:** Professional dark color scheme optimized for development tools
+- **Accessibility:** Focus states, ARIA labels, keyboard navigation
+- **Performance:** Optimized with lazy loading and code splitting
+
+## 🔐 Security Features (Planned)
+
+- JWT authentication with refresh tokens
+- OAuth SSO (Google, GitHub, Microsoft)
+- 2FA support
+- RBAC (Role-Based Access Control)
+- Audit logs for key actions
+- Encrypted data at rest
+
+## 🚀 Next Steps
+
+1. **Backend Integration** - Connect to API endpoints
+2. **Authentication** - Implement auth flows with JWT
+3. **AI Integration** - Connect AI services for intake and copilot
+4. **Complete Pages** - Build out remaining page functionality
+5. **Testing** - Add unit and integration tests
+6. **Deployment** - Set up CI/CD pipeline
+
+## 📝 Environment Variables
+
+Create a `.env` file based on `.env.example`:
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+## 🤝 Contributing
+
+This project follows the boilerplate guidelines for React + TypeScript + Vite + Tailwind CSS + Shadcn UI.
+
+## 📄 License
+
+Proprietary - All rights reserved
+
+---
+
+Built with ❤️ by the Autopilot Studio team

@@ -1,68 +1,137 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+/* Design System with CSS Custom Properties based on Design_reference.md */
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    /* RGB values without rgb() wrapper - space-separated */
+    
+    /* Primary background: Deep charcoal (#23272F) */
+    --background: 35 39 47;
+    --foreground: 255 255 255;
+    
+    /* Sidebar: Slightly darker (#1A1D23) */
+    --sidebar: 26 29 35;
+    
+    /* Card backgrounds: Medium dark gray (#2C313A) */
+    --card: 44 49 58;
+    --card-foreground: 255 255 255;
+    
+    /* Primary - using accent green as primary */
+    --primary: 114 212 122;
+    --primary-foreground: 35 39 47;
+    
+    /* Secondary - light gray for secondary text */
+    --secondary: 176 182 195;
+    --secondary-foreground: 35 39 47;
+    
+    /* Accent colors from design reference */
+    --accent-yellow: 255 223 110;
+    --accent-green: 114 212 122;
+    --accent-blue: 96 180 247;
+    --accent-red: 244 122 122;
+    --accent-purple: 185 140 249;
+    
+    /* Text colors */
+    --muted: 129 136 153;
+    --muted-foreground: 129 136 153;
+    
+    /* Border and divider: Subtle, semi-transparent gray (#353A43) */
+    --border: 53 58 67;
+    --input: 53 58 67;
+    --ring: 114 212 122;
+    
+    /* Destructive */
+    --destructive: 244 122 122;
+    --destructive-foreground: 255 255 255;
+    
+    /* Border radius: 12-16px from design */
+    --radius: 0.75rem;
   }
-  a:hover {
-    color: #747bff;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
-  button {
-    background-color: #f9f9f9;
+  
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
+  /* Configure heading styles based on Design_reference.md */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h4 {
+    @apply text-lg md:text-xl;
+  }
+  
+  p {
+    @apply text-secondary;
+    line-height: 1.6;
+  }
+}
+
+/* Smooth Scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom Animations */
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+/* Focus Visible for Accessibility */
+:focus-visible {
+  outline: 2px solid rgb(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--border));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--muted));
 }
