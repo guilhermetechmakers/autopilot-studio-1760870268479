@@ -20,6 +20,7 @@ import Dashboard from "@/pages/Dashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import IntakeWizard from "@/pages/IntakeWizard";
 import ProposalGenerator from "@/pages/ProposalGenerator";
+import ProposalsListPage from "@/pages/ProposalsListPage";
 import ProjectSpace from "@/pages/ProjectSpace";
 import TasksPage from "@/pages/TasksPage";
 import SettingsPage from "@/pages/SettingsPage";
@@ -79,7 +80,15 @@ export default function App() {
               }
             />
             <Route
-              path="/proposals/:id?"
+              path="/proposals"
+              element={
+                <ProtectedRoute>
+                  <ProposalsListPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/proposals/:id"
               element={
                 <ProtectedRoute>
                   <ProposalGenerator />
