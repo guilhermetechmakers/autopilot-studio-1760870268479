@@ -234,21 +234,33 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Button variant="outline" className="h-auto flex-col py-4">
+              <Button 
+                variant="outline" 
+                className="h-auto flex-col py-4"
+                onClick={() => window.location.href = '/intake'}
+              >
                 <Plus className="h-6 w-6 mb-2" />
+                <span className="text-sm">Start Intake</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-auto flex-col py-4"
+                onClick={() => window.location.href = '/projects/new'}
+              >
+                <FolderKanban className="h-6 w-6 mb-2" />
                 <span className="text-sm">Create Project</span>
               </Button>
-              <Button variant="outline" className="h-auto flex-col py-4">
+              <Button 
+                variant="outline" 
+                className="h-auto flex-col py-4"
+                onClick={() => window.location.href = '/proposals/new'}
+              >
                 <FileText className="h-6 w-6 mb-2" />
                 <span className="text-sm">New Proposal</span>
               </Button>
               <Button variant="outline" className="h-auto flex-col py-4">
                 <Calendar className="h-6 w-6 mb-2" />
                 <span className="text-sm">Book Meeting</span>
-              </Button>
-              <Button variant="outline" className="h-auto flex-col py-4">
-                <Clock className="h-6 w-6 mb-2" />
-                <span className="text-sm">Start Intake</span>
               </Button>
             </div>
           </CardContent>

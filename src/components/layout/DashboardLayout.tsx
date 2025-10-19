@@ -42,6 +42,7 @@ interface DashboardLayoutProps {
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Intake Wizard", href: "/intake", icon: Sparkles },
   { name: "Projects", href: "/projects", icon: FolderKanban },
   { name: "Proposals", href: "/proposals", icon: FileText },
   { name: "Tasks", href: "/tasks", icon: CheckSquare },
