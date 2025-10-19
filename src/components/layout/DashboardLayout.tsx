@@ -30,6 +30,7 @@ import {
   User,
   ChevronLeft,
   ChevronRight,
+  Package,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +46,7 @@ const navigation = [
   { name: "AI Copilot", href: "/copilot", icon: Sparkles },
   { name: "Time Tracking", href: "/time-tracking", icon: Clock },
   { name: "Calendar", href: "/calendar", icon: Calendar },
+  { name: "Handover Pack", href: "/handover", icon: Package },
   { name: "Billing", href: "/billing", icon: DollarSign },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
