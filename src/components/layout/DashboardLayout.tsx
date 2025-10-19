@@ -42,6 +42,7 @@ const navigation = [
   { name: "Projects", href: "/projects", icon: FolderKanban },
   { name: "Proposals", href: "/proposals", icon: FileText },
   { name: "Tasks", href: "/tasks", icon: CheckSquare },
+  { name: "AI Copilot", href: "/copilot", icon: Sparkles },
   { name: "Time Tracking", href: "/time-tracking", icon: Clock },
   { name: "Calendar", href: "/calendar", icon: Calendar },
   { name: "Billing", href: "/billing", icon: DollarSign },
