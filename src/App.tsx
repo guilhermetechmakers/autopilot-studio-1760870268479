@@ -28,6 +28,7 @@ import TimeTrackingPage from "@/pages/TimeTrackingPage";
 import AICopilotPage from "@/pages/AICopilotPage";
 import HandoverPackPage from "@/pages/HandoverPackPage";
 import ClientPortalPage from "@/pages/ClientPortalPage";
+import EmailManagement from "@/pages/EmailManagement";
 
 // React Query client with optimal defaults
 const queryClient = new QueryClient({
@@ -149,6 +150,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <SettingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/email-management"
+              element={
+                <ProtectedRoute requireAdmin>
+                  <EmailManagement />
                 </ProtectedRoute>
               }
             />
