@@ -49,14 +49,15 @@ const emailQueue: Map<string, EmailQueueItem> = new Map();
  * Email Service Class
  */
 export class EmailService {
-  private config: EmailConfig;
   private templates: EmailTemplates;
-  private apiUrl: string;
 
   constructor(config?: Partial<EmailConfig>) {
-    this.config = { ...emailConfig, ...config };
+    // Config merged with defaults but not stored as we use provider service
+    const mergedConfig = { ...emailConfig, ...config };
     this.templates = emailTemplates;
-    this.apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+    
+    // Suppress unused variable warning
+    void mergedConfig;
   }
 
   /**
@@ -133,36 +134,7 @@ export class EmailService {
    */
   private async sendEmailNow(request: EmailSendRequest): Promise<EmailSendResponse> {
     try {
-      // In production, this would call the actual email provider API
-      // For now, we'll simulate the API call
-      const response = await fetch(`${this.apiUrl}/emails/send`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-        },
-        body: JSON.stringify({
-          provider: this.config.provider,
-          from: this.config.from,
-          replyTo: this.config.replyTo,
-          ...request,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Email API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      return {
-        id: data.id || this.generateId(),
-        status: 'sent',
-        messageId: data.messageId,
-        timestamp: new Date(),
-      };
-    } catch (error) {
-      // In development mode, log email instead of failing
+      // In development mode, log email instead of sending
       if (import.meta.env.DEV) {
         console.log('📧 Email (Development Mode):', {
           to: request.to,
@@ -179,6 +151,11 @@ export class EmailService {
         };
       }
 
+      // In production, use the email provider service
+      const { emailProviderService } = await import('./emailProviderService');
+      return await emailProviderService.sendEmail(request);
+    } catch (error) {
+      console.error('Failed to send email:', error);
       throw error;
     }
   }
