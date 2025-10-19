@@ -15,6 +15,7 @@ import { PricingTableBuilder } from '@/components/proposals/PricingTableBuilder'
 import { MilestonesBuilder } from '@/components/proposals/MilestonesBuilder';
 import { VersionHistory } from '@/components/proposals/VersionHistory';
 import { ESignaturePanel } from '@/components/proposals/ESignaturePanel';
+import { CommentThread } from '@/components/proposals/CommentThread';
 import {
   Save,
   Send,
@@ -22,6 +23,7 @@ import {
   Download,
   ArrowLeft,
   FileSignature,
+  MessageSquare,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { proposalsApi, templatesApi, eSignaturesApi } from '@/api/proposals';
@@ -81,6 +83,13 @@ export default function ProposalGenerator() {
   const { data: signature } = useQuery({
     queryKey: ['proposal-signature', id],
     queryFn: () => eSignaturesApi.getByProposalId(id!),
+    enabled: !isNew,
+  });
+
+  // Fetch comments
+  const { data: comments = [] } = useQuery({
+    queryKey: ['proposal-comments', id],
+    queryFn: () => proposalsApi.getComments(id!),
     enabled: !isNew,
   });
 
@@ -251,6 +260,16 @@ export default function ProposalGenerator() {
     }
   };
 
+  const handleAddComment = async (content: string, section?: string) => {
+    try {
+      await proposalsApi.addComment(id!, content, section);
+      toast.success('Comment added');
+      queryClient.invalidateQueries({ queryKey: ['proposal-comments', id] });
+    } catch {
+      toast.error('Failed to add comment');
+    }
+  };
+
   if (showTemplateSelector) {
     return (
       <DashboardLayout>
@@ -362,7 +381,7 @@ export default function ProposalGenerator() {
 
         {/* Main content */}
         <Tabs defaultValue="content" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="content">
               <FileText className="h-4 w-4 mr-2" />
               Content
@@ -372,6 +391,10 @@ export default function ProposalGenerator() {
             <TabsTrigger value="signature" disabled={isNew}>
               <FileSignature className="h-4 w-4 mr-2" />
               E-Signature
+            </TabsTrigger>
+            <TabsTrigger value="comments" disabled={isNew}>
+              <MessageSquare className="h-4 w-4 mr-2" />
+              Comments
             </TabsTrigger>
             <TabsTrigger value="history" disabled={isNew}>History</TabsTrigger>
           </TabsList>
@@ -385,6 +408,7 @@ export default function ProposalGenerator() {
                     value={content.introduction}
                     onChange={(value) => setContent({ ...content, introduction: value })}
                     placeholder="Introduce your proposal..."
+                    showAISuggestions
                   />
                 </div>
 
@@ -396,6 +420,7 @@ export default function ProposalGenerator() {
                     value={content.scope_of_work}
                     onChange={(value) => setContent({ ...content, scope_of_work: value })}
                     placeholder="Describe the scope of work..."
+                    showAISuggestions
                   />
                 </div>
 
@@ -445,6 +470,13 @@ export default function ProposalGenerator() {
               onSendSignature={handleSendSignature}
               onVoidSignature={handleVoidSignature}
               onDownloadSigned={handleDownloadSigned}
+            />
+          </TabsContent>
+
+          <TabsContent value="comments">
+            <CommentThread
+              comments={comments}
+              onAddComment={handleAddComment}
             />
           </TabsContent>
 
