@@ -27,6 +27,7 @@ import SettingsPage from "@/pages/SettingsPage";
 import TimeTrackingPage from "@/pages/TimeTrackingPage";
 import AICopilotPage from "@/pages/AICopilotPage";
 import HandoverPackPage from "@/pages/HandoverPackPage";
+import ClientPortalPage from "@/pages/ClientPortalPage";
 
 // React Query client with optimal defaults
 const queryClient = new QueryClient({
@@ -132,6 +133,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <HandoverPackPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/client-portal/:projectId"
+              element={
+                <ProtectedRoute>
+                  <ClientPortalPage />
                 </ProtectedRoute>
               }
             />
