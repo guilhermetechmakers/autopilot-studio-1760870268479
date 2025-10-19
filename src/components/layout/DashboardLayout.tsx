@@ -31,6 +31,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Package,
+  Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -48,6 +49,7 @@ const navigation = [
   { name: "Calendar", href: "/calendar", icon: Calendar },
   { name: "Handover Pack", href: "/handover", icon: Package },
   { name: "Billing", href: "/billing", icon: DollarSign },
+  { name: "Admin", href: "/admin", icon: Shield },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
